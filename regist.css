@@ -7,6 +7,8 @@ header,
 footer {
   height: 60px;
   display: flex;
+  padding: 10px;
+  border: 2px solid #000;
   align-items: center;   /* 縦中央 */
   justify-content: center; /* 横中央 */
 }

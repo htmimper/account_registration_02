@@ -15,14 +15,32 @@ $authority = ($form['authority'] == 0) ? '一般' : '管理者';
 
 // パスワード表示用（●）
 $password_mask = str_repeat('●', strlen($form['password']));
+
+// 前に戻るボタン押下時にフォームに値を保持するための処理
+// regist.php 側で $_POST['back'] が送られてきた場合、セッションに値を残しておく
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['back'])) {
+    header('Location: regist.php');
+    exit;
+}
+
 ?>
 <!doctype html>
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <title>アカウント登録確認画面</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+      table th { text-align: left; padding-right: 10px; }
+  </style>
 </head>
 <body>  
+<header>
+    ナビゲーションバー
+</header>
+
+<h1>アカウント登録確認</h1>
+
 <table>
 <tr>
   <th>名前（姓）</th>
@@ -76,7 +94,8 @@ $password_mask = str_repeat('●', strlen($form['password']));
 
 <br>
 <!-- 前に戻る -->
-<form method="post" action="regist.php" style="display:inline;">
+<form method="post" action="" style="display:inline;">
+  <input type="hidden" name="back" value="1">
   <button type="submit">前に戻る</button>
 </form>
     
@@ -84,8 +103,9 @@ $password_mask = str_repeat('●', strlen($form['password']));
 <form method="post" action="regist_complete.php" style="display:inline;">
   <button type="submit">登録する</button>
 </form>
-    <footer>
-        フッター
-    </footer>
+
+<footer>
+    フッター
+</footer>
 </body>
 </html>
