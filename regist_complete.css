@@ -1,0 +1,70 @@
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+header,
+footer {
+  height: 60px;
+  display: flex;
+  padding: 10px;
+  border: 2px solid #000;
+  align-items: center;   /* 縦中央 */
+  justify-content: center; /* 横中央 */
+}
+
+/* 全体 */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/*中身*/
+table {
+  margin: 30px auto;
+}
+/* 画面タイトル */
+h1 {
+  margin-top: 20px;
+}
+
+/* フォーム全体 */
+.form-area {
+  width: 500px;
+  margin: 30px auto;
+}
+
+/* 各行 */
+.form-row {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+/* ラベル */
+.form-row label {
+  width: 180px;
+}
+
+/* 入力欄 */
+.form-row input,
+.form-row select {
+  width: 250px;
+  padding: 5px;
+}
+
+/* ラジオボタン */
+.gender {
+  display: flex;
+  gap: 10px;
+}
+
+/* ボタン */
+.button-area {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  gap: 20px;              /* ボタン間の余白 */
+  margin-top: 30px;
+}
+
+.button-area form {
+  margin: 0; 
+}

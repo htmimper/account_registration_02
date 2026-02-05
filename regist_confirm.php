@@ -1,0 +1,113 @@
+<?php
+session_start();
+
+// セッションにデータが無い場合は登録画面へ戻す
+if (!isset($_SESSION['form'])) {
+    header('Location: regist.php');
+    exit;
+}
+
+$form = $_SESSION['form'];
+
+// 性別・権限の表示用変換
+$gender = ($form['gender'] == 0) ? '男' : '女';
+$authority = ($form['authority'] == 0) ? '一般' : '管理者';
+
+// パスワード表示用（●）
+$password_mask = str_repeat('●', strlen($form['password']));
+
+// 前に戻るボタン押下時にフォームに値を保持するための処理
+// regist.php 側で $_POST['back'] が送られてきた場合、セッションに値を残しておく
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['back'])) {
+    header('Location: regist.php');
+    exit;
+}
+
+?>
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>アカウント登録確認画面</title>
+  <link rel="stylesheet" href="regist_comfirm.css">
+  <style>
+      table th { text-align: left; padding-right: 10px; }
+  </style>
+</head>
+<body>  
+<header>
+    ナビゲーションバー
+</header>
+
+<h1>アカウント登録確認</h1>
+
+<table>
+<tr>
+  <th>名前（姓）</th>
+  <td><?= htmlspecialchars($form['family_name']) ?></td>
+</tr>
+<tr>
+  <th>名前（名）</th>
+  <td><?= htmlspecialchars($form['last_name']) ?></td>
+</tr>
+<tr>
+  <th>カナ（姓）</th>
+  <td><?= htmlspecialchars($form['family_name_kana']) ?></td>
+</tr>
+<tr>
+  <th>カナ（名）</th>
+  <td><?= htmlspecialchars($form['last_name_kana']) ?></td>
+</tr>
+<tr>
+  <th>メールアドレス</th>
+  <td><?= htmlspecialchars($form['mail']) ?></td>
+</tr>
+<tr>
+  <th>パスワード</th>
+  <td><?= $password_mask ?></td>
+</tr>
+<tr>
+  <th>性別</th>
+  <td><?= $gender ?></td>
+</tr>
+<tr>
+  <th>郵便番号</th>
+  <td><?= htmlspecialchars($form['postal_code']) ?></td>
+</tr>
+<tr>
+  <th>住所（都道府県）</th>
+  <td><?= htmlspecialchars($form['prefecture']) ?></td>
+</tr>
+<tr>
+  <th>住所（市区町村）</th>
+  <td><?= htmlspecialchars($form['address_1']) ?></td>
+</tr>
+<tr>
+  <th>住所（番地）</th>
+  <td><?= htmlspecialchars($form['address_2']) ?></td>
+</tr>
+<tr>
+  <th>アカウント権限</th>
+  <td><?= $authority ?></td>
+</tr>
+</table>
+
+<br>
+<div class="button-area">
+  <!-- 前に戻る -->
+  <form method="post" action="">
+    <input type="hidden" name="back" value="1">
+    <button type="submit">前に戻る</button>
+  </form>
+
+  <!-- 登録する -->
+  <form method="post" action="regist_complete.php">
+    <button type="submit">登録する</button>
+  </form>
+</div>
+<br>
+<footer>
+    フッター
+</footer>
+</body>
+</html>
