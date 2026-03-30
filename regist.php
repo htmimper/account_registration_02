@@ -76,7 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($data['mail']) && !preg_match('/^[a-zA-Z0-9\-@.]+$/', $data['mail'])) {
     $errors['mail'] = 'メールアドレスの形式が正しくありません。';
     }
-
+    if (!empty($data['mail']) && strlen($data['mail']) < 5) {
+    $errors['mail'] = 'メールアドレスは5文字以上で入力してください。';
+    }
     // 住所
     if (!empty($data['address_1']) && !preg_match('/^[ぁ-んァ-ヶ一-龥0-9\- ]+$/u', $data['address_1'])) {
     $errors['address_1'] = '住所（市区町村）に使用できない文字があります。';
