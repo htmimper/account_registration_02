@@ -30,8 +30,7 @@ $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <th>削除フラグ</th>
   <th>登録日時</th>
   <th>更新日時</th>
-  <th>更新</th>
-  <th>削除</th>
+  <th>操作</th>
 </tr>
 
 <?php foreach($accounts as $row): ?>
@@ -57,18 +56,14 @@ $accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <td><?= date('Y-m-d', strtotime($row['update_time'])) ?></td>
 
   <!-- 更新日時-->
-  <td>
-    <a href="update.php?id=<?= $row['id'] ?>">
-      <button>更新</button>
-    </a>
-  </td>
-
-  <!-- 削除 -->
-  <td>
-    <a href="delete.php?id=<?= $row['id'] ?>">
-      <button>削除</button>
-    </a>
-  </td>
+ <td>
+  <a href="update.php?id=<?= $row['id'] ?>">
+    <button>更新</button>
+  </a>
+  <a href="delete.php?id=<?= $row['id'] ?>">
+    <button>削除</button>
+  </a>
+</td>
 </tr>
 <?php endforeach; ?>
 
