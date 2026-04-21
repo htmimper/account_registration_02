@@ -1,0 +1,64 @@
+
+/* 全体 */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* ヘッダー・フッター */
+header,
+footer {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+}
+
+/* タイトル */
+h1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* テーブル */
+table {
+  margin: 30px auto;
+  border-collapse: collapse;
+  width: 600px;          /* ←広げる */
+  table-layout: fixed;   /* ←列幅固定 */
+}
+
+/* 見出し・値 */
+th, td {
+  padding: 10px;
+  white-space: nowrap;   /* ←改行させない */
+}
+
+/* 左側ラベル */
+th {
+  text-align: left;
+  width: 200px;
+}
+
+/* 右側データ */
+td {
+  width: 400px;
+}
+
+/* ボタン */
+.button-area {
+  text-align: center;
+  margin: 30px;
+}
+
+button {
+  width: 200px;
+  padding: 10px;
+  border: 2px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #eee;
+}
