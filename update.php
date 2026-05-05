@@ -35,6 +35,7 @@ function h($str) {
 <head>
 <meta charset="UTF-8">
 <title>アカウント更新</title>
+<link rel="stylesheet" href="update.css">
 </head>
 
 <body>
@@ -70,8 +71,8 @@ value="<?= h($user["mail"]) ?>"><br>
 value="<?= h($user["password"]) ?>"><br>
 
 性別：
-<input type="radio" name="gender" value="0" <?= $user["gender"] == 0 ? "checked" : "" ?>>男
-<input type="radio" name="gender" value="1" <?= $user["gender"] == 1 ? "checked" : "" ?>>女<br>
+男<input type="radio" name="gender" value="0" <?= $user["gender"] == 0 ? "checked" : "" ?>>
+女<input type="radio" name="gender" value="1" <?= $user["gender"] == 1 ? "checked" : "" ?>><br>
 
 郵便番号：
 <input type="text" name="postal_code" maxlength="7"
