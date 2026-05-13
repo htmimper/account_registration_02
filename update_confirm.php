@@ -4,7 +4,7 @@ session_start();
 // POSTデータ取得
 $data = $_POST;
 
-// CSRF（簡易）
+// CSRF
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -17,99 +17,172 @@ function h($str) {
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 <meta charset="UTF-8">
 <title>更新確認画面</title>
+
+<link rel="stylesheet" href="update_confirm.css">
+
 </head>
 
 <body>
 
-<h2>アカウント更新確認画面</h2>
+<div class="wrapper">
 
-<p>以下の内容で更新しますか？</p>
+    <h1 class="page-title">
+        アカウント更新確認画面
+    </h1>
 
-<table border="1">
+    <div class="container">
 
-<tr>
-<th>名前（姓）</th>
-<td><?= h($data["family_name"] ?? "") ?></td>
-</tr>
+        <div class="nav">
+            ナビゲーションバー
+        </div>
 
-<tr>
-<th>名前（名）</th>
-<td><?= h($data["last_name"] ?? "") ?></td>
-</tr>
+        <div class="content">
 
-<tr>
-<th>カナ（姓）</th>
-<td><?= h($data["family_name_kana"] ?? "") ?></td>
-</tr>
+            <h2 class="section-title">
+                アカウント更新確認画面
+            </h2>
 
-<tr>
-<th>カナ（名）</th>
-<td><?= h($data["last_name_kana"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">名前（姓）</div>
+                <div class="value">
+                    <?= h($data["family_name"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>メールアドレス</th>
-<td><?= h($data["mail"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">名前（名）</div>
+                <div class="value">
+                    <?= h($data["last_name"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>パスワード</th>
-<td><?= str_repeat("●", strlen($data["password"] ?? "")) ?></td>
-</tr>
+            <div class="row">
+                <div class="label">カナ（姓）</div>
+                <div class="value">
+                    <?= h($data["family_name_kana"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>性別</th>
-<td><?= ($data["gender"] ?? "") == 0 ? "男" : "女" ?></td>
-</tr>
+            <div class="row">
+                <div class="label">カナ（名）</div>
+                <div class="value">
+                    <?= h($data["last_name_kana"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>郵便番号</th>
-<td><?= h($data["postal_code"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">メールアドレス</div>
+                <div class="value">
+                    <?= h($data["mail"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>住所（都道府県）</th>
-<td><?= h($data["prefecture"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">パスワード</div>
+                <div class="value">
+                    <?= str_repeat("●", strlen($data["password"] ?? "")) ?>
+                </div>
+            </div>
 
-<tr>
-<th>市区町村</th>
-<td><?= h($data["address_1"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">性別</div>
+                <div class="value">
+                    <?= ($data["gender"] ?? "") === "0" ? "男" : "女" ?>
+                </div>
+            </div>
 
-<tr>
-<th>番地</th>
-<td><?= h($data["address_2"] ?? "") ?></td>
-</tr>
+            <div class="row">
+                <div class="label">郵便番号</div>
+                <div class="value">
+                    <?= h($data["postal_code"] ?? "") ?>
+                </div>
+            </div>
 
-<tr>
-<th>アカウント権限</th>
-<td><?= ($data["authority"] ?? "") == 1 ? "管理者" : "一般" ?></td>
-</tr>
+            <div class="row">
+                <div class="label">住所（都道府県）</div>
+                <div class="value">
+                    <?= h($data["prefecture"] ?? "") ?>
+                </div>
+            </div>
 
-</table>
+            <div class="row">
+                <div class="label">市区町村</div>
+                <div class="value">
+                    <?= h($data["address_1"] ?? "") ?>
+                </div>
+            </div>
 
-<br>
+            <div class="row">
+                <div class="label">番地</div>
+                <div class="value">
+                    <?= h($data["address_2"] ?? "") ?>
+                </div>
+            </div>
 
-<!-- 更新処理へ -->
-<form action="update_complete.php" method="post">
-    <?php foreach ($data as $key => $value): ?>
-        <input type="hidden" name="<?= h($key) ?>" value="<?= h($value) ?>">
-    <?php endforeach; ?>
+            <div class="row">
+                <div class="label">アカウント権限</div>
+                <div class="value">
+                    <?= ($data["authority"] ?? "") === "1" ? "管理者" : "一般" ?>
+                </div>
+            </div>
 
-    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+            <div class="button-area">
 
-    <button type="submit">更新する</button>
-</form>
+                <!-- 戻る -->
+                <form action="update.php" method="get">
 
-<!-- 戻る -->
-<form action="update.php" method="get">
-    <input type="hidden" name="id" value="<?= h($data["id"] ?? "") ?>">
-    <button type="submit">前に戻る</button>
-</form>
+                    <input
+                        type="hidden"
+                        name="id"
+                        value="<?= h($data["id"] ?? "") ?>"
+                    >
+
+                    <button type="submit">
+                        前に戻る
+                    </button>
+
+                </form>
+
+                <!-- 更新 -->
+                <form action="update_complete.php" method="post">
+
+                    <?php foreach ($data as $key => $value): ?>
+
+                        <input
+                            type="hidden"
+                            name="<?= h($key) ?>"
+                            value="<?= h($value) ?>"
+                        >
+
+                    <?php endforeach; ?>
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?= $_SESSION['csrf_token'] ?>"
+                    >
+
+                    <button type="submit">
+                        更新する
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="footer">
+            フッター
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
